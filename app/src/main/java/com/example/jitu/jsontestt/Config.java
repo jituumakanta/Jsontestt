@@ -15,6 +15,6 @@ public class Config {
     public static final String TAG_USERNAME = "name";
     public static final String JSON_ARRAY = "result";
     public static final String DATA_URL5 ="http://hellohelps.com/HelloHelps/getarea.php";
-
+    public static String url="http://api.androidhive.info/pizza/?format=xml";
 
 }

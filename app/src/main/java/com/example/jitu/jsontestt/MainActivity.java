@@ -1,5 +1,7 @@
 package com.example.jitu.jsontestt;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,11 +32,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     AutoCompleteTextView actv;
     List<String> students;
     ImageView mImageView;
     //private JSONArray result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,16 @@ public class MainActivity extends AppCompatActivity {
         actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         students = new ArrayList<String>();
         mImageView = (ImageView) findViewById(R.id.myImage);
-        // getData();
-        getData6();
+         final String url = "http://api.androidhive.info/pizza/?format=xml";
+         //getData8(url);
+        //getData6();
+
+        zzz x=new zzz();
+        x.k(this);
+       x.getData9(url);
+
+       // Intent i = new Intent(getApplicationContext(), zzz.class);
+       // startActivity(i);
     }
 
 
@@ -125,6 +136,29 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         //Adding request to the queue
         requestQueue.add(stringRequest);
+    }
+
+    public void getData8(String url){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //xml =response.toString();
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        //return xml;
     }
 
     private void getStudents1(JSONArray j) {
@@ -286,26 +320,5 @@ public class MainActivity extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(request);
     }
     //get json object
-    private void getData7() {
-        String url = "http://api.androidhive.info/volley/person_object.json";
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-JSONObject o;
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        o=response;
-                       Toast.makeText(getApplicationContext(),""+o,Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-// Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-    }
 }
